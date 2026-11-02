@@ -1,0 +1,17 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {emptyCase,validateCase,missingEvidence,computedStatus} from '../lib/rules.mjs';
+const base={...emptyCase,code:'H-001',description:'Fuga ficticia',responsible:'Ejemplo',next_action:'Revisar',follow_up:'2026-11-04'};
+const complete={...base,repair_note:'Trabajo registrado',repair_date:'2026-10-20',check_person:'Verificador',check_date:'2026-10-21',check_method:'Prueba visual',check_result:'passed',supply_suitable:true,household_result:'confirmed',household_date:'2026-10-21',household_channel:'Llamada'};
+test('pending case can save with a valid next action',()=>assert.equal(validateCase(base).errors.length,0));
+test('whitespace owner rejected',()=>assert.ok(validateCase({...base,responsible:'  '}).errors.length));
+test('incomplete closure is rejected',()=>assert.ok(validateCase({...base,status:'verified'}).errors.length));
+test('all required evidence permits explicit closure',()=>{assert.deepEqual(missingEvidence(complete),[]);assert.equal(computedStatus(complete,true),'verified');assert.equal(validateCase({...complete,status:'verified'}).errors.length,0);});
+test('save without explicit closure remains pending',()=>assert.equal(computedStatus(complete,false),'verification_pending'));
+for(const [k,v] of [['check_result','inconclusive'],['supply_suitable',false],['household_result','unreachable'],['household_channel','']])test('missing evidence blocks closure: '+k,()=>assert.ok(validateCase({...complete,[k]:v,status:'verified'}).errors.length));
+test('continued loss reopens a case',()=>assert.equal(computedStatus({...complete,household_result:'continued'},true),'reopened'));
+test('continued loss cannot save without reason',()=>assert.ok(validateCase({...base,household_result:'continued',status:'reopened'}).errors.length));
+test('invalid date and chronology rejected',()=>{assert.ok(validateCase({...base,follow_up:'2026-02-31'}).errors.length);assert.ok(validateCase({...complete,check_date:'2026-10-19'}).errors.length);});
+test('oversized and non-string inputs rejected',()=>{assert.ok(validateCase({...base,description:'x'.repeat(501)}).errors.length);assert.ok(validateCase({...base,responsible:{}}).errors.length);});
+test('future evidence rejected',()=>assert.ok(validateCase({...complete,repair_date:'2099-01-01'}).errors.length));
+test('unknown status rejected',()=>assert.ok(validateCase({...base,status:'magic'}).errors.length));

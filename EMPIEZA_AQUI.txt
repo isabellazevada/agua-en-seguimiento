@@ -1,0 +1,10 @@
+AGUA EN SEGUIMIENTO — CÓDIGO PARA GITHUB
+
+1. Descomprime este ZIP.
+2. Abre tu repositorio agua-en-seguimiento en GitHub y entra en la raíz (donde está README.md).
+3. Add file > Upload files. Arrastra el CONTENIDO de esta carpeta: app, lib, supabase, tests, docs y los archivos package.json, package-lock.json, next.config.mjs y postcss.config.mjs. No arrastres el ZIP ni la carpeta exterior.
+4. Commit changes: Add core case-follow-up application.
+5. Conserva tus CHARTER.md, PERSONAS.md, PACKET.md e imagen existentes.
+6. Continúa con docs/SETUP.md para Supabase, Google y Vercel.
+
+El código tiene una demo temporal con datos ficticios. El guardado real necesita Supabase. El dominio, las cuentas y las pruebas en vivo siguen pendientes.

@@ -1,0 +1,4 @@
+import './globals.css';
+import Link from 'next/link';
+export const metadata={title:'Agua en seguimiento',description:'Cada caso, un responsable. Cada reparación, una verificación.'};
+export default function Layout({children}){return <html lang="es"><body><header className="site-header"><Link href="/" className="brand"><span className="brand-icon">◈</span><span>Agua en<span className="brand-sub">seguimiento</span></span></Link><nav aria-label="Navegación principal"><Link href="/product">Producto</Link><Link href="/about">El proyecto</Link><Link className="button small" href="/product">Abrir seguimiento <span>↗</span></Link></nav></header>{children}<footer><span className="footer-brand">Agua en seguimiento</span><span>Claridad para actuar. Evidencia para cerrar.</span><span>Proyecto académico · Isabella Zevada</span></footer></body></html>;}
