@@ -11,17 +11,26 @@ async function authorize(req){
  const {data,error}=await db.auth.getUser(token);if(error||!data.user)return {error:answer({error:'Sesión inválida. Vuelve a iniciar sesión.'},401)};
  return {db,user:data.user};
 }
-export async function GET(req){const a=await authorize(req);if(a.error)return a.error;const {data,error}=await a.db.from('cases').select('*').eq('owner_id',a.user.id).order('updated_at',{ascending:false});return error?answer({error:'No se pudieron cargar los casos. Revisa la configuración de la base de datos.'},500):answer({cases:data});}
+export async function GET(req){const a=await authorize(req);if(a.error)return a.error;const id=new URL(req.url).searchParams.get('history');if(id){if(!/^[0-9a-f-]{36}$/i.test(id))return answer({error:'Identificador inválido.'},400);const {data,error}=await a.db.from('case_history').select('id,version,snapshot,recorded_at').eq('case_id',id).eq('owner_id',a.user.id).order('version',{ascending:false}).limit(50);return error?answer({error:'No se pudo cargar el historial.'},500):answer({history:data});}const {data,error}=await a.db.from('cases').select('*').eq('owner_id',a.user.id).order('updated_at',{ascending:false});return error?answer({error:'No se pudieron cargar los casos. Revisa la configuración de la base de datos.'},500):answer({cases:data});}
 export async function POST(req){
  const a=await authorize(req);if(a.error)return a.error;
  if(Number(req.headers.get('content-length')||0)>24000)return answer({error:'Solicitud demasiado grande.'},413);
  let payload;try{const raw=await req.text();if(raw.length>24000)return answer({error:'Solicitud demasiado grande.'},413);payload=JSON.parse(raw);}catch{return answer({error:'Solicitud inválida.'},400);}
  if(!payload||typeof payload!=='object')return answer({error:'Solicitud inválida.'},400);
  const {value,errors}=validateCase(payload);if(errors.length)return answer({error:errors.join(' · ')},400);
- const row={...value,owner_id:a.user.id};for(const k of ['follow_up','repair_date','check_date','household_date'])row[k]=row[k]||null;
+ const row={...value,owner_id:a.user.id};for(const k of ['follow_up','repair_date','check_date','household_date','acceptance_date'])row[k]=row[k]||null;
  let result;
- if(payload.id){if(!/^[0-9a-f-]{36}$/i.test(payload.id))return answer({error:'Identificador inválido.'},400);result=await a.db.from('cases').update(row).eq('id',payload.id).eq('owner_id',a.user.id).select().single();}
+ if(payload.id){if(!Number.isInteger(payload.version)||payload.version<1)return answer({error:'Actualiza el caso antes de guardar.'},409);if(!/^[0-9a-f-]{36}$/i.test(payload.id))return answer({error:'Identificador inválido.'},400);result=await a.db.from('cases').update(row).eq('id',payload.id).eq('owner_id',a.user.id).eq('version',payload.version).select().maybeSingle();}
  else result=await a.db.from('cases').insert(row).select().single();
+ if(!result.error&&!result.data)return answer({error:'El caso cambió en otra sesión. Actualiza la lista y vuelve a abrirlo antes de guardar.'},409);
  if(result.error)return answer({error:result.error.code==='23505'?'Ese código de caso ya existe.': 'No se guardó el caso. Revisa los datos y la configuración de Supabase.'},400);
  return answer({case:result.data});
+}
+
+export async function PUT(req){
+ const a=await authorize(req);if(a.error)return a.error;
+ let p;try{const raw=await req.text();if(raw.length>2000)return answer({error:'Solicitud demasiado grande.'},413);p=JSON.parse(raw);}catch{return answer({error:'Solicitud inválida.'},400);}
+ if(!p||!/^([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})$/i.test(p.case_id)||!['case_opened','verification_blocked'].includes(p.event_type)||!['','missing_confirmation','contradictory_reports','incomplete_evidence'].includes(p.reason??''))return answer({error:'Evento inválido.'},400);
+ const {error}=await a.db.from('case_events').insert({case_id:p.case_id,owner_id:a.user.id,event_type:p.event_type,reason:p.reason??''});
+ return error?answer({error:'No se registró el evento.'},400):answer({ok:true});
 }
