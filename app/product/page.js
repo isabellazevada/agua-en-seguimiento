@@ -1,7 +1,7 @@
 'use client';
 import { useEffect,useState,useRef } from 'react';
 import { getBrowserClient } from '../../lib/supabase';
-import {emptyCase,labels,missingEvidence,computedStatus,validateCase} from '../../lib/rules.mjs';
+import {emptyCase,labels,missingEvidence,computedStatus,validateCase,changeCaseField} from '../../lib/rules.mjs';
 const sample=()=>[
  {...emptyCase,id:'demo-1',code:'H-001',description:'Pérdida visible en una llave del patio.',responsible:'Equipo técnico de ejemplo',next_action:'Programar revisión de la llave',follow_up:'2026-11-04',status:'repair_pending'},
  {...emptyCase,id:'demo-2',code:'H-002',description:'Fuga reportada en la conexión del lavadero.',responsible:'Coordinadora de ejemplo',next_action:'Confirmar resultado con el hogar',follow_up:'2026-11-03',repair_note:'Se reemplazó una conexión. Ejemplo ficticio.',repair_date:'2026-10-29',check_person:'Verificador de ejemplo',check_date:'2026-10-30',check_method:'Inspección visual con suministro activo.',check_result:'passed',supply_suitable:true,status:'verification_pending'},
@@ -21,7 +21,7 @@ export default function Product(){
  useEffect(()=>{if(mode==='cloud'&&session)load();},[mode,session?.user?.id]);
  useEffect(()=>{const handler=e=>{if(dirty){e.preventDefault();e.returnValue='';}};window.addEventListener('beforeunload',handler);return()=>window.removeEventListener('beforeunload',handler);},[dirty]);
  function open(c){if(dirty&&!window.confirm('Tienes cambios sin guardar. ¿Descartarlos?'))return;setForm(normalize(c));setDirty(false);setError('');setMessage('');showHistory(c.id);if(c.id)logEvent(c.id,'case_opened').catch(()=>setHistoryError('No se pudo registrar la apertura del caso.'));}
- function change(k,v){setForm(f=>({...f,[k]:v}));setDirty(true);setMessage('');setError('');}
+ function change(k,v){setForm(f=>changeCaseField(f,k,v));setDirty(true);setMessage('');setError('');}
  async function save(close){
   if(saving.current)return;
   setError('');setMessage('');const candidate={...form,status:computedStatus(form,close)};const {errors,value}=validateCase(candidate);if(errors.length){setError(errors.join(' · '));return;}

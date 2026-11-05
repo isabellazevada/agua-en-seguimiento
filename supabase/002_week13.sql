@@ -44,6 +44,9 @@ begin
    if new.owner_id<>old.owner_id or new.id<>old.id then raise exception 'Case ownership and id cannot change'; end if;
    new.created_at:=old.created_at;
    new.version:=old.version+1;
+   if new.responsible is distinct from old.responsible then
+     new.acceptance:='pending';new.acceptance_date:=null;new.acceptance_source:='';
+   end if;
  else
    new.version:=1;
  end if;
