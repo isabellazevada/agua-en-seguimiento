@@ -26,3 +26,11 @@ workflow and access isolation before using any real information.
 
 External account setup, SQL execution on live Supabase, Google OAuth,
 domain purchase, Vercel deployments, real-user research and 10:1 testing.
+
+## Week 14 session close
+
+- Use one calculator route with an explicit fictional example and two independent results for the first month and recurring cost.
+- Keep calculator scenario snapshots and buyer signals separate from leak records. Google sessions and owner-scoped RLS gate cloud storage.
+- The initial mobile header hid the calculator because its second navigation link is suppressed by the existing mobile rules. Moved the calculator past those hidden positions and compacted the mobile header.
+- The branch contains the Week 14 packet before implementation. Week 12's packet is preserved as `PACKET-week12.md`.
+- Next move: push this branch, apply the pricing migration and OAuth redirect, then run the live sign-in and reload checks before the persona test.

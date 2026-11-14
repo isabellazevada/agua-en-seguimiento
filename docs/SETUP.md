@@ -101,3 +101,10 @@ https://supabase.com/docs/guides/auth/social-login/auth-google
 https://supabase.com/docs/guides/database/postgres/row-level-security
 
 The runtime package versions are recorded in package-lock.json.
+
+## Week 14 pricing calculator
+
+- With the existing Supabase project, run `supabase/002_pricing.sql` in SQL Editor. Keep the existing environment variables and Google provider.
+- In Supabase Auth URL Configuration, add the exact deployed `/pricing` URL to the OAuth redirect allow list. Keep the existing `/product` callback.
+- Open `/pricing` from **Calculadora**. The fictional demo saves in memory for the current page. Google sign-in enables account-only persistence.
+- In the deployed app, sign in, save a fictional scenario, reload and reopen it. In a second account, verify the first scenario and decision log are inaccessible. Record actual deployments and persona-test evidence separately.

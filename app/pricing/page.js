@@ -13,24 +13,27 @@ const emptyDecision = { kind: 'quote', date: '', source: 'simulated' };
 const sampleRow = { id: 'example', inputs: example, results: calculatePricing(example), calculation_version: version, decisions: [] };
 
 export default function Pricing() {
-  const [form, setForm] = useState(example);
-  const [rows, setRows] = useState([]);
-  const [opened, setOpened] = useState(null);
-  const [decision, setDecision] = useState(emptyDecision);
   const [session, setSession] = useState(null);
-  const [busy, setBusy] = useState(false);
-  const [notice, setNotice] = useState('');
-  const [error, setError] = useState('');
   const db = getBrowserClient();
-  const owner = session?.user.id;
-  const pricing = validatePricing(form);
-  const result = opened?.results ?? (pricing.errors.length ? null : calculatePricing(pricing.value));
-
   useEffect(() => {
     if (!db) return;
     const { data } = db.auth.onAuthStateChange((_event, nextSession) => setSession(nextSession));
     return () => data.subscription.unsubscribe();
   }, [db]);
+
+  return <PricingWorkspace key={session?.user.id ?? 'demo'} db={db} owner={session?.user.id} />;
+}
+
+function PricingWorkspace({ db, owner }) {
+  const [form, setForm] = useState(example);
+  const [rows, setRows] = useState([]);
+  const [opened, setOpened] = useState(null);
+  const [decision, setDecision] = useState(emptyDecision);
+  const [busy, setBusy] = useState(false);
+  const [notice, setNotice] = useState('');
+  const [error, setError] = useState('');
+  const pricing = validatePricing(form);
+  const result = opened?.results ?? (pricing.errors.length ? null : calculatePricing(pricing.value));
 
   useEffect(() => {
     if (!owner) return;
@@ -142,8 +145,6 @@ export default function Pricing() {
     act(async () => {
       const { error: signOutError } = await db.auth.signOut();
       if (signOutError) throw new Error('No se pudo cerrar la sesión.');
-      setRows([]);
-      open(sampleRow);
     });
   }
 
@@ -162,7 +163,7 @@ export default function Pricing() {
       : 'Demo con datos ficticios · Los cambios se borran al salir de la página. Usa solo datos inventados.'}</p>
 
     <div className="pricing-grid">
-      <form className="panel pricing-panel" onSubmit={save}>
+      <form className="panel pricing-panel" onSubmit={save} noValidate>
         <div className="pricing-section-title"><h2>Escenario de ahorro</h2>
           <button className="pricing-link" type="button" onClick={() => open(sampleRow)}>Cargar ejemplo</button></div>
         <fieldset disabled={busy}>
@@ -244,7 +245,7 @@ export default function Pricing() {
 
     {opened && opened.id !== 'example' && <section className="panel pricing-panel pricing-log">
       <h2>Decisiones del comité</h2><p>{opened.inputs.name} · Registra cada señal con su fecha y fuente.</p>
-      <form onSubmit={record}><fieldset className="pricing-decision" disabled={busy}>
+      <form onSubmit={record} noValidate><fieldset className="pricing-decision" disabled={busy}>
         <label>Evento<select value={decision.kind} onChange={event => setDecision({ ...decision, kind: event.target.value })}>
           {Object.entries(pilotSignals).map(([key, label]) => <option key={key} value={key}>{label}</option>)}
         </select></label>
