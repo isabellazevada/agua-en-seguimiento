@@ -37,3 +37,9 @@ has been invented. Record actual results as they occur.
 - An isolated PostgreSQL test applied the migration. The owner could read the scenario and its events. Another identity could read neither and could not attach a decision event. Anonymous access was denied.
 - Inspection found the calculator link was hidden on mobile by an existing positional CSS rule. The link was moved outside those hidden positions, and the production markup and route were checked again. A visual mobile browser test remains open.
 - Production Google OAuth, cloud reload, real-domain deployments, and the fresh-chat persona test remain open.
+
+## Week 14 synthetic persona pass
+
+Laura, a synthetic condominium coordinator, reviewed three preview screenshots. She correctly identified that the simulated Site scenario fell MXN 440 short, but paused at the pre-fee savings and the ratio. The main confusion was seeing “Guardar escenario” in a demo that discards changes on reload. She also had difficulty distinguishing two same-name saved rows. The screenshots did not show a reload and reopen.
+
+The demo button now says “Guardar solo para esta prueba,” with a Google sign-in hint when available. The empty list explains that demo entries can be opened until reload. The signed-in button still says “Guardar escenario.” Live persona retest pending.

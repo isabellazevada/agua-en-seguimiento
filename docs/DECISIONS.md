@@ -34,3 +34,8 @@ domain purchase, Vercel deployments, real-user research and 10:1 testing.
 - The initial mobile header hid the calculator because its second navigation link is suppressed by the existing mobile rules. Moved the calculator past those hidden positions and compacted the mobile header.
 - The branch contains the Week 14 packet before implementation. Week 12's packet is preserved as `PACKET-week12.md`.
 - Next move: push this branch, apply the pricing migration and OAuth redirect, then run the live sign-in and reload checks before the persona test.
+
+## Week 14 persona follow-up
+
+- Clarified temporary saving where Laura makes the decision to save. Display the Google sign-in hint when account storage is configured.
+- Next move: reopen the branch preview, retest the demo wording and confirm the signed-in scenario can be reopened after reload.

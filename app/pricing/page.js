@@ -196,7 +196,12 @@ function PricingWorkspace({ db, owner }) {
               value={form.otherSource} onChange={event => change('otherSource', event.target.value)} /></label>
             <div className="pricing-fields">{numberInput('providerMinutes')}{numberInput('providerRate')}{numberInput('providerCosts')}</div>
           </details>
-          <button className="button pricing-save" type="submit">{busy ? 'Procesando…' : 'Guardar escenario'}</button>
+          <button className="button pricing-save" type="submit" aria-describedby={owner ? undefined : 'demo-save-help'}>
+            {busy ? 'Procesando…' : owner ? 'Guardar escenario' : 'Guardar solo para esta prueba'}
+          </button>
+          {!owner && <p className="pricing-scope" id="demo-save-help">
+            {db ? 'Entra con Google para conservarlo.' : 'El guardado en tu cuenta no está disponible en esta versión.'}
+          </p>}
         </fieldset>
       </form>
 
@@ -232,7 +237,9 @@ function PricingWorkspace({ db, owner }) {
     <p className="pricing-status" role="status">{notice}</p>
     <section className="panel pricing-panel">
       <h2>Escenarios guardados</h2>
-      {!rows.length ? <p>Guarda un escenario para volver a abrirlo y comparar sus resultados.</p> :
+      {!rows.length ? <p>{owner
+        ? 'Guarda un escenario para volver a abrirlo y comparar sus resultados.'
+        : 'Los escenarios de prueba se pueden volver a abrir hasta que recargues la página.'}</p> :
         <div className="table-scroll"><table className="pricing-table"><thead><tr>
           <th>Escenario</th><th>Plan</th><th>Saldo del primer mes</th><th>Beneficio/costo</th><th>Acción</th>
         </tr></thead><tbody>{rows.map(row => <tr key={row.id}>
