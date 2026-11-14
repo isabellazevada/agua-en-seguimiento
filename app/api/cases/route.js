@@ -1,16 +1,6 @@
-import { createClient } from '@supabase/supabase-js';
+import { answer, authorize } from '../../../lib/server-auth';
 import { validateCase } from '../../../lib/rules.mjs';
 export const dynamic='force-dynamic';
-const answer=(data,status=200)=>Response.json(data,{status,headers:{'Cache-Control':'no-store'}});
-async function authorize(req){
- const url=process.env.NEXT_PUBLIC_SUPABASE_URL,key=process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
- if(!url||!key)return {error:answer({error:'Supabase aún no está configurado.'},503)};
- const token=req.headers.get('authorization')?.match(/^Bearer (.+)$/)?.[1];
- if(!token)return {error:answer({error:'Inicia sesión para acceder.'},401)};
- const db=createClient(url,key,{global:{headers:{Authorization:'Bearer '+token}},auth:{persistSession:false,autoRefreshToken:false}});
- const {data,error}=await db.auth.getUser(token);if(error||!data.user)return {error:answer({error:'Sesión inválida. Vuelve a iniciar sesión.'},401)};
- return {db,user:data.user};
-}
 export async function GET(req){const a=await authorize(req);if(a.error)return a.error;const {data,error}=await a.db.from('cases').select('*').eq('owner_id',a.user.id).order('updated_at',{ascending:false});return error?answer({error:'No se pudieron cargar los casos. Revisa la configuración de la base de datos.'},500):answer({cases:data});}
 export async function POST(req){
  const a=await authorize(req);if(a.error)return a.error;
