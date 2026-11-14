@@ -1,368 +1,111 @@
-# Agua en seguimiento - Week 12 Build Packet
+# Agua en seguimiento
+## Week 14 · Pricing build packet
 
-Owner: Isabella Zevada
-Status: Pre-build plan
-Related documents: CHARTER.md and PERSONAS.md
+**Isabella Zevada Vázquez · Operator · Team 8**  
+**14 November 2026 · Pre-build specification**
 
-## 1. Problem in my words
+### 1. Problem and exact user
 
-A reported repair does not necessarily mean a household's
-water-loss problem has been resolved. A coordinator needs
-to know which cases remain pending, who is responsible,
-what happens next and what evidence is missing.
+A condominium coordinator tracks leaks across WhatsApp and Excel. The committee needs to decide whether paying **$490 MXN for one month** buys enough improvement over an organized version of that workflow. The comparison must include the time spent setting up, entering updates, and checking that repairs actually resolved the leak.
 
-We assume that some coordinators reconstruct this information
-from messages, calls and spreadsheets. This assumption has
-not yet been confirmed with a real coordinator.
+Laura, a synthetic 54-year-old coordinator who uses WhatsApp, reads slowly, and has little time, is the primary user. She enters and retrieves scenarios. The authorized condominium administrator or committee member controls the budget. The household reports whether the leak persists and is the only source that can confirm resolution.
 
-## 2. Exact user
+### 2. Success before the module closes
 
-The primary user is a coordinator managing an initial set
-of up to ten household leak cases in one area.
+At the venture's real domain, Laura can sign in with Google, compare the same cases and period under WhatsApp + Excel and Site, see the monthly costs and buyer benefit, and reopen a saved scenario after signing out and back in. Each scenario keeps its inputs, evidence labels, pricing assumptions and calculation version. The result shows both the $490 renewal threshold and the 10:1 course target with plain-language explanations. A scenario with hypothetical inputs stays labeled as hypothetical. Payment and pricing activity never change case status.
 
-The household representative confirms whether the problem
-continues through an agreed contact channel. The coordinator
-records that confirmation. Household and plumber accounts
-are outside the initial build.
+### 3. Offer and decision rules
 
-Laura is a fictional coordinator used for synthetic testing.
-She is not an interviewed customer.
+| Plan | Monthly price | Scope |
+| --- | --- | --- |
+| Free | $0 MXN | Five active cases plus one overflow slot. A seventh report stays visible as in WhatsApp, with no assigned owner or follow-up date. |
+| Site · pilot focus | $490 MXN | One month, one condominium, 25 active cases, 30 minutes of setup and 15 minutes of support. Migration of 20 existing cases is quoted separately. |
+| Program · offer reference | $1,490 MXN | Three sites, 100 active cases total and a combined view. |
 
-## 3. Success before the module closes
+Fix the Site price and scope before the buyer conversation. Log quote requested, written approval, payment received and renewal as separate events with a date and source category. A quote request is an interest signal. For the five-case free trial, compare matched cases first. Use conservative assumptions for comparable additional cases and test those assumptions before projecting at full capacity.
 
-An authenticated coordinator can:
+| Measure | Calculation or interpretation |
+| --- | --- |
+| Monthly labor value before plan | Sum across roles of (baseline minutes − Site minutes) × hourly MXN ÷ 60. Include entry, follow-up and updates in both workflows. Use separate rates for administration and coordination. |
+| Other verified buyer benefit | Optional, attributable MXN with a source and period. Count each benefit once. Evidence of a repair alone does not establish a monetary amount. |
+| Total buyer cost for first month | $490 + buyer setup labor + separately approved charges. Recurring buyer cost excludes one-time charges and includes any recurring charges. Provider setup and support labor are tracked separately. |
+| First-month buyer value | Monthly labor value + other verified buyer benefit − first-month buyer cost. Show the recurring equivalent separately when first-month costs differ. |
+| Benefit-to-cost ratio | (Monthly labor value + other verified buyer benefit) ÷ total first-month buyer cost. Show “Not calculable” when the denominator is zero. Show progress to 10:1 separately. Result is an estimate when any input is hypothetical. |
+| Renewal rule | Monthly buyer value before the plan must cover recurring buyer cost, with household verification maintained. Record observed evidence before recommending a paid renewal. |
+| Provider cost | Track founder setup, support, and retry minutes × provider hourly rate, plus direct delivery costs. Show cost and contribution separately from buyer value. |
 
-1. Register a fictional case.
-2. Assign a responsible person, next action and follow-up date.
-3. Record completed repair work.
-4. Record a functional check and household confirmation.
-5. See which requirements are missing.
-6. Save an incomplete verification without closing the case.
-7. Close a case only when all closure requirements are met.
-8. Reopen a case when the household reports continued loss.
-9. Reload the page and retrieve the saved information.
+**Synthetic fixture.** At $200 MXN/hour for both roles, administration saves 60 minutes and coordination adds 45 minutes. Labor value is $50 MXN and the first-month balance is −$440 MXN when all additional costs are zero. The ratio is 0.10×. The fixture is a calculation check.
 
-The site must work at the venture's purchased domain.
-Home, /product and /about must load.
+### 4. Evidence and the shadow clause
 
-Passing these checks demonstrates the software workflow,
-not real-world repair success, adoption or water savings.
+Payment buys service and access. Repair reports and functional checks retain their date and source. Verified closure requires household confirmation with its date and channel, a dated repair and functional check under suitable water supply, and no continuing-loss report. A contradictory household report reopens the case even if a technician previously marked the repair as successful. Preserve unresolved and paused cases as unverified. Store scenario totals independently from the case history.
 
-## 4. Image-generated mockup
+For the pilot, track the share of material WhatsApp changes entered within two business hours and before action, decisions made with outdated information, minutes by role, and family-confirmed outcomes. Record “unknown” when evidence is missing.
 
-The AI-generated dashboard image is stored in this docs folder.
-It shows fictional cases and a repair awaiting household
-confirmation.
+### 5. Image-generated mockup
 
-The mockup includes:
-- A case list with status, owner and next action.
-- An amber verification-pending status.
-- A visible explanation of missing confirmation.
-- "Guardar pendiente" as the available action.
-- A disabled "Cerrar como verificado" action.
+![Concept for the pricing calculator. The figures are synthetic and the build uses separate hourly rates by role.](pricing-mockup.webp)
 
-Implementation corrections:
-- Add a visible follow-up date.
-- Limit navigation to the core case workflow.
-- Do not implement the extra navigation shown in the image.
-- Checkmarks must correspond to saved evidence, not just
-  an unchecked claim becoming checked.
-
-The image is a visual reference, not a working application.
-
-## 5. My Method as the engine
-
-Step 3 of my Method becomes the function that makes each
-case's responsible person, pending action and required
-verification visible, and keeps a reported repair pending
-until verification evidence and household confirmation
-are recorded.
-
-The rule uses deterministic logic. It requires no AI model.
-
-Closure requires:
-- A dated repair record describing the work performed.
-- A dated functional check with performer, method and result.
-- Suitable water-supply conditions for a meaningful check.
-- Household confirmation, including date and contact channel.
-- No report that the loss continues.
-
-Missing or inconclusive information keeps the case pending.
-If the household cannot be reached, save the next contact
-action; do not assume the repair worked.
-
-## 6. Feature flow
+### 6. Feature flow
 
 ```mermaid
 flowchart TD
-    A["Coordinator signs in"] --> B["Create or open an authorized case"]
-    B --> C["Enter owner, next action and follow-up date"]
-    C --> D{"Valid input?"}
-    D -- No --> E["Explain the field errors"]
-    E --> C
-    D -- Yes --> F["Record repair and verification evidence"]
-    F --> G{"Household reports continued loss?"}
-    G -- Yes --> H["Keep open or reopen; assign next action"]
-    G -- No --> I{"All closure requirements met?"}
-    I -- No --> J["Show missing evidence; save pending"]
-    I -- Yes --> K["Coordinator confirms verified closure"]
-    H --> L["Save authorized record"]
-    J --> L
-    K --> L
-    L --> M{"Database save succeeded?"}
-    M -- No --> N["Show error; retain unsaved input"]
-    M -- Yes --> O["Confirm saved status and reload case"]
+  A["Sign in and enter matched inputs"] --> B{"Inputs valid?"}
+  B -- "No" --> C["Show field errors"] --> A
+  B -- "Yes" --> D["Calculate cost, benefit and ratio"]
+  D --> E["Show assumptions and evidence status"]
+  E --> F["Save scenario"]
+  F --> G["Reopen and compare"]
 ```
-
-## 7. Actor responsibilities
 
 ```mermaid
-sequenceDiagram
-    participant H as Household
-    participant P as Plumber or verifier
-    participant C as Coordinator
-    participant S as Application
-    participant D as Database
-
-    H->>C: Reports problem through agreed channel
-    C->>S: Registers case, owner and next action
-    S->>D: Saves under authenticated owner
-    P->>C: Provides repair details and functional check
-    H->>C: Confirms result or reports continued loss
-    C->>S: Records evidence and requests status update
-    S->>S: Validates closure requirements
-    alt Evidence missing or loss continues
-        S->>D: Saves pending or reopened case
-        S->>C: Explains missing evidence and next action
-    else All requirements met
-        S->>D: Saves coordinator-confirmed closure
-        S->>C: Displays verified status
-    end
+flowchart TD
+  subgraph L["Coordinator"]
+    L1["Enter matched case totals"]
+    L2["Review and save scenario"]
+    L3["Record buyer response and evidence"]
+  end
+  subgraph S["Application"]
+    S1["Validate and calculate"]
+    S2["Save under signed-in owner"]
+  end
+  subgraph B["Budget owner"]
+    B1["Review offer and evidence"]
+    B2["Request quote, approve, pay or renew"]
+  end
+  L1 --> S1 --> L2 --> S2 --> B1 --> B2 --> L3
 ```
 
-Household and provider communication is outside the app
-in this build. The coordinator records its source and date.
+### 7. Benchmark
 
-## 8. Benchmark
+The strongest existing benchmark I found for the pricing feature is MaintainX's maintenance ROI calculator, which estimates gains from labor productivity and avoided downtime. Agua localizes that approach to one Mexican condominium by comparing its own WhatsApp + Excel baseline against a $490 MXN monthly pilot with attributable household evidence. [MaintainX ROI calculator](https://webflow.getmaintainx.com/roi-calculator)
 
-Selected international benchmark:
-Sydney Water's WaterFix Residential connects household
-leak problems with qualified plumbing services and
-defined repair coverage.
+### 8. Three-year view
 
-Source:
-https://www.sydneywater.com.au/your-home/helping-you-save-water/waterfix-residential.html
+In three years, administrators could compare follow-up costs and household-verified outcomes across sites. Coordinators could see which cases need action and keep their existing contact channel with households. Committees could use the same evidence to decide which sites to renew or expand.
 
-Localization:
-Agua en seguimiento focuses on a Spanish-language
-coordination workflow for a small Mexican support program,
-making responsibility, pending actions and closure evidence
-explicit.
+### 9. Scope and architecture
 
-WaterFix is a relevant benchmark, not proven to be the
-world's best solution. Its public description does not
-establish how its internal case-management software works.
+This week covers matched workflow comparisons, saved scenarios and the Site pilot decision log. Deferred work includes checkout, invoicing, automated WhatsApp ingestion, bulk migration, Program rollups and AI-generated valuations.
 
-The practical alternative to beat is the coordinator's
-current process, including a well-organized Excel sheet.
-
-## 9. Three-year view
-
-The product could become a reliable follow-up workspace
-for small household water-support programs.
-It would help coordinators preserve case history and
-distinguish reported work from verified outcomes.
-Expansion would depend on real demand, feasible funding
-and evidence that the workflow improves on simpler tools.
-
-## 10. Scope cut
-
-Build one feature:
-case registration and follow-up through verified closure.
-
-Included:
-- Google sign-in.
-- Case list and detail view.
-- Create and update case.
-- Owner, next action and follow-up date.
-- Repair and verification records.
-- Missing-evidence explanations.
-- Save, reload and reopen.
-- Home, /product and /about.
-
-Excluded:
-- Sensor integration.
-- AI diagnosis or generated repair advice.
-- Payments and funding applications.
-- Provider marketplace.
-- Automatic messaging.
-- Route optimization.
-- Household or plumber portals.
-- Water-savings predictions.
-- Automatic closure.
-
-## 11. Architecture and stack
-
-| Layer | Planned choice | Responsibility |
-| --- | --- | --- |
-| Interface | Next.js / React | Spanish pages and case workflow |
-| Styling | Tailwind CSS | Accessible responsive interface |
-| Authentication | Supabase Auth with Google | Coordinator sign-in |
-| Database | Supabase PostgreSQL | Persistent case records |
-| Authorization | Row Level Security | Restrict records to their owner |
-| Validation | Shared server-side rules | Reject invalid input and closure |
-| Hosting | Vercel | Deploy the working application |
-| Version control | GitHub | Source, documents and commit history |
-| Domain | Venture-owned purchased domain | URL of record |
-
-Use free service tiers. Domain purchase is a separate
-assignment requirement. No account or domain setup is
-claimed complete in this packet.
-
-## 12. Minimum data
-
-Each case stores:
-- Internal ID and fictional household code.
-- Authenticated coordinator owner ID.
-- Brief problem description.
-- Responsible person's name or role.
-- Status.
-- Next action and follow-up date.
-- Repair description and completion date.
-- Check performer, date, method, result and supply conditions.
-- Household confirmation result, date and channel.
-- Creation and update timestamps.
-- Reopening reason when applicable.
-
-Initial demos must not collect real addresses, phone
-numbers, identification documents or bank information.
-Use case codes H-001, H-002 and H-003.
-
-Statuses:
-reported, repair pending, verification pending,
-verified resolved, referred and reopened.
-
-A referred case is not counted as resolved.
-
-## 13. Security floor
-
-1. No secrets in source or GitHub. Deployment credentials
-   belong in environment variables.
-2. Require Google sign-in for stored case data.
-3. Enable RLS on every user-data table. Validate ownership
-   for reads, inserts and updates.
-4. Validate input on the server and in the interface:
-   required fields, valid dates, allowed status values,
-   trimmed text and explicit length limits.
-5. Use labeled fictional demo data only.
-
-Suggested limits:
-- Case code: 30 characters.
-- Owner or responsible role: 100 characters.
-- Problem description: 500 characters.
-- Next action: 250 characters.
-- Repair and verification notes: 1,000 characters each.
-
-Do not trust a client-supplied "verified" status.
-The server and database must enforce closure requirements.
-Never display a successful save before persistence succeeds.
-
-## 14. Blueprint conditions
-
-1. Do not claim customer demand without a real recent case.
-2. Distinguish reported, missing and verified information.
-3. Compare complete tasks against existing alternatives.
-4. Identify responsible people and external dependencies.
-5. Preserve human decisions and provide reopening rules.
-6. Shadow clause: never present simulated, predicted,
-   reported or intermediate results as verified
-   real-world success.
-
-For this build, a repair record alone must never produce
-a verified-closure label.
-
-## 15. Test plan - planned, not completed
-
-| Test | Expected behavior |
+| Layer | Existing stack and addition |
 | --- | --- |
-| Create a valid case | Record saves and reloads correctly |
-| Missing owner or next action | Clear validation error |
-| Whitespace-only required field | Rejected |
-| Repair recorded, no check | Verification stays pending |
-| Check inconclusive due to supply | Closure blocked |
-| Household not reached | Save pending with next action |
-| Household says loss continues | Closure blocked or case reopened |
-| All evidence complete | Coordinator can close and save |
-| Direct invalid closure request | Server/database rejects it |
-| Another user's case ID | Read and update denied |
-| Signed-out database request | Access denied |
-| Failed save | Error shown; no false success |
-| Refresh after update | Saved state remains |
-| Mobile and keyboard use | Core actions remain accessible |
+| Interface and hosting | Existing Next.js/React app on Vercel free tier. Add a Spanish pricing route and update the existing navigation. |
+| Calculation | Shared deterministic JavaScript function. Validate in the UI and server. Store currency in cents and round only at documented calculation boundaries. |
+| Identity and data | Supabase Google Auth and owner-scoped RLS for scenario and decision records, including write checks. Reuse the signed-in user's access token. |
+| Validation | Reject invalid numbers, missing required inputs and mismatched periods. Bound minutes, rates and text length. Use fixed evidence categories and server-assigned ownership. |
+| Security and demo | Use invented data labeled on screen. Keep secrets out of Git and configure server secrets in Vercel. Reuse the existing closure rules and avoid collecting household details in scenarios. |
 
-Mechanical pass:
-Run the tests and document actual results, defects and fixes.
-If a bug is found, fix it and redeploy. Do not invent a bug
-or report a planned test as completed.
+### 10. Test and release plan
 
-Synthetic persona pass:
-Use Laura in a fresh chat and show screens in task order.
-Ask her to find H-002, explain its status and save the case
-while household confirmation is missing.
-Log confusion, select the most important correction,
-retest and distinguish simulation from real-user evidence.
+| Check | Expected result |
+| --- | --- |
+| Synthetic example | $50 before plan, −$440 after plan and 0.10×. |
+| Cost and threshold boundaries | Different role rates, setup and migration change the expected totals. At equal benefit and cost the balance is $0 and the ratio is 1.00×. At $4,900 on $490 cost the ratio is 10.00×. |
+| Invalid inputs and persistence | Reject negative raw minutes and rates, blank required fields and mismatched periods. Save and reload with the same inputs and outputs. |
+| Privacy | Signed-out save is blocked. A second signed-in account cannot read or change another owner's scenario or decision events. |
+| Shadow clause | A technician's favorable test and paid status leave verification pending until household confirmation. A later report of continued leakage reopens the case. |
+| Mechanical pass | Use deployment 1 at the real domain. Record an observed defect, correction, commit, deployment 2 and retest. |
+| Synthetic persona pass | In a fresh chat, show Laura each live screen in order. Ask her to compare, save and reopen a scenario and explain the result in her own words. Log her confusion and fix the worst issue. |
 
-## 16. Value hypothesis and measurement
-
-Illustrative target:
-20 minutes to identify pending cases, owners and next actions
-with a baseline workflow versus 2 minutes with the prototype.
-
-These are hypothetical figures, not measured results.
-
-Compare equivalent tasks at comparable accuracy. Include
-data entry and updates, missed cases and incorrect closures.
-If Excel performs similarly, improve the sheet rather than
-claiming an unsupported advantage.
-
-North Star:
-Verified resolved cases divided by all accepted cases in
-a defined intake cohort, measured at a stated cutoff.
-Pending, referred and reopened cases remain visible.
-No real service outcome has been measured.
-
-## 17. Implementation and deployment plan
-
-1. Commit charter, personas, packet and generated mockup
-   before implementation.
-2. Commit the site skeleton and shared visual components.
-3. Commit authentication, schema and RLS.
-4. Commit the case workflow and closure rules.
-5. Commit documented test fixes and usability corrections.
-
-Deploy at least twice:
-- First functional deployment for testing.
-- Updated deployment after actual corrections.
-
-Record real commit hashes, deployment URLs and dates.
-Connect and test the venture's purchased domain.
-Do not reconstruct or backdate development evidence.
-
-## 18. Session Close and evidence
-
-At the end of every build session:
-- Update docs/DECISIONS.md.
-- Record decisions, remaining limitations and next action.
-- Update the prompt/development log.
-- Commit and push.
-
-Final deliverables:
-- Live venture-domain URL.
-- GitHub repository link.
-- Demo video with the final 30-second reflection.
-- PACKET_IsabellaZevada.pdf.
-- PERSONA_IsabellaZevada.pdf with actual synthetic-test log.
-- BUILDCHAT_IsabellaZevada.pdf with the development exchange.
-
-This packet is the pre-build plan. Test results, deployment
-evidence and real-user findings must be added when obtained.
+Capture the Packet commit before implementation. At session close, update DECISIONS.md with decisions and tomorrow's first move, then commit and push. Record the deployment URLs and test evidence. The Week 14 Crystal Ball Brief, final team ratification and real grading domain still need confirmation against the course materials.
