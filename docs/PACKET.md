@@ -1,7 +1,8 @@
 # Agua en seguimiento
 ## Week 14 · Pricing build packet
 
-**Isabella Zevada Vázquez · Operator · Team 8**  
+**Isabella Zevada Vázquez · Operator · Team 8**
+
 **14 November 2026 · Pre-build specification**
 
 ### 1. Problem and exact user

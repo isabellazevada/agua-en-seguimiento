@@ -28,3 +28,12 @@ Local HTTP/browser smoke testing was not completed in this environment.
 
 No deployment, user interview, physical repair or persona result
 has been invented. Record actual results as they occur.
+
+## Week 14 local mechanical pass
+
+- Production build and the 20 automated tests passed.
+- The calculator and cases routes returned HTTP 200. The pricing API returned HTTP 401 for anonymous reads and writes.
+- A DOM test rendered the Site fixture ($50 before the fee, -$440 after, 0.10×), saved it in demo mode, reopened it and rejected an event without a date.
+- An isolated PostgreSQL test applied the migration. The owner could read the scenario and its events. Another identity could read neither and could not attach a decision event. Anonymous access was denied.
+- Inspection found the calculator link was hidden on mobile by an existing positional CSS rule. The link was moved outside those hidden positions, and the production markup and route were checked again. A visual mobile browser test remains open.
+- Production Google OAuth, cloud reload, real-domain deployments, and the fresh-chat persona test remain open.
