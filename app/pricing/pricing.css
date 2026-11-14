@@ -1,0 +1,39 @@
+.pricing-workspace { max-width: 1160px; margin: auto; padding: clamp(30px, 5vw, 68px) clamp(16px, 4vw, 48px); color: #162b43; }
+.pricing-heading, .pricing-section-title { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; }
+.pricing-heading h1 { margin: 0; max-width: 20ch; font-size: clamp(2rem, 5.8vw, 3.8rem); line-height: 1.03; letter-spacing: -.05em; }
+.pricing-heading p { margin: 14px 0 0; max-width: 65ch; }
+.pricing-heading button { flex-shrink: 0; }
+.pricing-mode { background: #e1f3ee; color: #164f48; padding: 12px 16px; border-radius: 10px; margin: 25px 0 16px; font-size: .88rem; }
+.pricing-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); align-items: start; gap: 16px; }
+.pricing-workspace .pricing-panel { min-width: 0; background: #fff; border: 1px solid #dbe5eb; border-radius: 16px; padding: clamp(16px, 2.5vw, 26px); }
+.pricing-panel h2 { margin: 0 0 12px; font-size: clamp(1.1rem, 2.4vw, 1.4rem); letter-spacing: -.025em; }
+.pricing-panel fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
+.pricing-panel label { display: block; margin: 7px 0; font-size: .85rem; font-weight: 650; }
+.pricing-panel input, .pricing-panel select { margin-top: 4px; min-height: 42px; }
+.pricing-fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(120px, 100%), 1fr)); gap: 0 10px; }
+.pricing-input { display: flex; align-items: center; gap: 5px; }
+.pricing-input > span { font-size: .73rem; color: #496270; }
+.pricing-role legend { font-size: .93rem; font-weight: 750; padding: 12px 0 0; }
+.pricing-details { margin: 15px 0; border-top: 1px solid #dbe5eb; padding-top: 8px; }
+.pricing-details summary { cursor: pointer; font-size: .88rem; font-weight: 650; }
+.pricing-save { width: 100%; justify-content: center; min-height: 44px; }
+.pricing-link { border: 0; padding: 0; cursor: pointer; color: #096861; background: transparent; text-decoration: underline; font: inherit; font-size: .85rem; white-space: nowrap; }
+.pricing-badge { color: #165951; background: #e2f4ef; border-radius: 99px; padding: 5px 9px; font-size: .72rem; font-weight: 750; flex-shrink: 0; }
+.pricing-total { background: #e5f6f0; border-radius: 12px; margin: 8px 0; padding: 13px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 10px; align-items: baseline; color: #165951; }
+.pricing-total strong { font-size: clamp(1.1rem, 2vw, 1.45rem); font-variant-numeric: tabular-nums; }
+.pricing-total.balance { background: #e8effa; color: #203b66; }
+.pricing-total.negative { background: #fbefe5; color: #793900; }
+.pricing-metrics { margin: 18px 0; }
+.pricing-metrics > div { display: flex; justify-content: space-between; gap: 10px; padding: 8px 0; border-bottom: 1px solid #e3ebef; font-size: .91rem; }
+.pricing-metrics dd { flex-shrink: 0; margin: 0; font-weight: 750; font-variant-numeric: tabular-nums; }
+.pricing-explanation { background: #eff5f8; border-radius: 8px; padding: 10px 12px; font-size: .88rem; }
+.pricing-scope { font-size: .84rem; color: #405969; margin-bottom: 0; }
+.pricing-status { margin: 8px 0; min-height: 1rem; font-size: .9rem; color: #165951; }
+.pricing-table small { display: block; color: #405969; }
+.pricing-log { margin-top: 16px; }
+.pricing-panel .pricing-decision { display: flex; align-items: end; gap: 12px; flex-wrap: wrap; }
+.pricing-decision button { margin-bottom: 7px; }
+@media (max-width: 760px) {
+  .pricing-grid { grid-template-columns: 1fr; }
+  .pricing-heading { flex-direction: column; }
+}
