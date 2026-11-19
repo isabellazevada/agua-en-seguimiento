@@ -110,3 +110,78 @@ This week covers matched workflow comparisons, saved scenarios and the Site pilo
 | Synthetic persona pass | In a fresh chat, show Laura each live screen in order. Ask her to compare, save and reopen a scenario and explain the result in her own words. Log her confusion and fix the worst issue. |
 
 Capture the Packet commit before implementation. At session close, update DECISIONS.md with decisions and tomorrow's first move, then commit and push. Record the deployment URLs and test evidence. The Week 14 Crystal Ball Brief, final team ratification and real grading domain still need confirmation against the course materials.
+
+
+---
+
+# Week 15 · Distribution — Pre-build addendum
+**19 November 2026 · Isabella Zevada Vázquez · Team 8 · Planning before implementation**
+
+## Problem, exact audience, success and scope
+The primary audience is a Mexican condominium or small community-program coordinator who repeatedly reconciles WhatsApp reports with Excel, loses time finding the responsible person or next action, and has someone available to manually enter messages. A budget owner is a secondary decision-maker. The venture does not automatically read WhatsApp. The household alone confirms whether the problem is resolved.
+
+Week 15 success means: three finished on-brand assets across at least two formats; six planned concepts in three recurring series; a public, evaluator-accessible venture page with a clear next step to the synthetic demo and an optional, privacy-conscious interest flow; two assets actually shown to intended-audience people; and honestly logged outcomes, including zeros. No audience contact, clicks, captures or deployments are claimed at pre-build stage.
+
+Scope cut: no automated WhatsApp ingestion, purchased reach, bulk posting, new payment integration, public household data, or unverified claim that the tool prevents leaks. Keep the existing pricing and cases workflows intact. No real contact data in the public demo.
+
+## Positioning and evidence boundaries
+**Positioning:** “Menos información perdida. Más seguimiento verificable.” A coordinator can organize manually captured reports by owner, next action, date and verification status. Evidence: existing synthetic H-002 workflow, Week 13 case-follow-up UI and Week 14 pricing fixture. These demonstrate behavior, not proven real-world savings or user adoption. **Promise withheld:** “Detectamos todas las fugas automáticamente” or “evitamos todos los cierres incorrectos.”
+
+Three voice rules: (1) clear, practical Mexican Spanish; (2) explain what depends on manual capture and family verification; (3) show concrete next actions without fear, hype or invented metrics. Rewrite weak line “Nunca pierdas otra fuga” to “Después de registrar un aviso, consulta quién sigue y qué falta verificar.”
+
+Palette: deep teal #164E53, aqua #BCE8DD, warm ivory #FAF8F2, amber #B66C21, ink #182B2B. Hierarchy: large semibold headline, medium descriptive subhead, compact readable body and clear CTA. Reusable layout: small series label → one problem or example → three-step visual → single CTA. WhatsApp/Excel references and plain Spanish reflect the Mexican audience without implying WhatsApp integration.
+
+## Six concepts and three finished assets
+| Series | Concept | Status/format |
+| --- | --- | --- |
+| Problemas reales | ¿Dónde quedó el siguiente paso? | Finish: square visual card |
+| Problemas reales | Un mensaje recibido no es un caso cerrado | Purposeful headline sketch |
+| Así funciona | WhatsApp manual → responsable → verificación | Finish: three-panel walkthrough |
+| Así funciona | Asignado ≠ aceptado ≠ verificado | Purposeful headline sketch |
+| Prueba y confianza | Prueba H-002 con datos inventados | Finish: short landing-page explainer |
+| Prueba y confianza | ¿Cuándo gana Excel mejorado? | Purposeful comparison sketch |
+
+**Realistic synthetic input → method → useful output:** Input (fictional WhatsApp message): “La llave sigue tirando agua después de la visita.” Research role checks the product's actual states; writing role creates a factual one-sentence next step; visual role formats a status card; claims role checks no automatic detection or verified closure is asserted; style role checks Spanish, contrast and CTA; human approves or revises. Output: “H-002 · Pérdida continúa · Reabrir seguimiento · Responsable por confirmar · No verificado.” This is a content demonstration using invented input, not a real WhatsApp integration.
+
+| Role | Input | Output | Quality gate |
+| --- | --- | --- | --- |
+| Research | Prior packet, case rules, audience hypothesis | Evidence and audience brief | Separate observed vs hypothetical |
+| Writing | Approved brief | Headline, body, CTA | No absolute promises |
+| Visual production | Copy, palette and layout | Two graphic formats and page asset | Readable mobile contrast |
+| Claim checking | Finished draft and working product | Claims ledger | Every feature claim reproducible |
+| Style review | Asset and voice rules | Revision notes | Plain Mexican Spanish |
+| Revision + human approval | Feedback and evidence | Publishable asset | Human sign-off before distribution |
+
+## Distribution test, metrics and decision rule
+Channel: targeted, opt-in WhatsApp outreach to two or more coordinators who match the exact user profile; do not send household data. Show two different finished assets and one working next-action URL. Log only aggregate delivered, viewed (when knowable), link clicks (when measurable), opt-ins, and qualitative feedback without names, phone numbers or screenshots of private messages. Unknown is not zero. **Pre-test expectation (hypothesis):** the three-step example will make manual capture clearer than a generic claim. **Actual results: pending real outreach.** Keep the asset if people correctly explain the next step and at least one takes a meaningful action; revise if they assume automatic detection or cannot identify the CTA. No fabricated engagement.
+
+## Architecture, security and testing
+Reuse Next.js/React, Vercel and existing Supabase authenticated case/scenario flows with RLS. New public marketing content must be static or use a carefully validated opt-in mechanism; the first version can route to the already-working synthetic demo without storing personal information. Never expose keys, real household records or private contact data. Limit input types and lengths for any future capture form, require explicit consent and access controls. Keep existing five-commit and two-deployment history rather than generating artificial commits.
+
+Mechanical test: load public page and both CTAs signed out; verify demo uses fictional data, pricing remains intact, mobile rendering, keyboard navigation, claim boundaries and no exposed secrets. Reproduce, fix and retest only actual failures. Persona test: in a fresh chat, ask a research-grounded **synthetic** Laura to walk through the page, open the demo, identify who acts next and explain whether WhatsApp is read automatically. Record her confusion and revision; simulation is separate from real distribution evidence.
+
+## Mermaid workflow with actors
+```mermaid
+flowchart TD
+  A[Coordinator sees invited content] --> B[Opens public venture page]
+  B --> C[Reads manual-capture disclosure]
+  C --> D[Opens synthetic H-002 demo]
+  D --> E[Tries follow-up and verification states]
+  E --> F{Wants a pilot conversation?}
+  F -- No --> G[Leave without sharing data]
+  F -- Yes --> H[Use consent-based contact path when available]
+  I[Human reviewer] --> J[Approve claims and asset]
+  J --> A
+  K[Research and writing roles] --> L[Visual and claims review]
+  L --> I
+```
+
+## Mockup, global benchmark/local adaptation, three-year direction
+Visual mockup specification: ivory landing page with teal headline, three-step status illustration, amber “sin verificar” tag, and one prominent “Probar demo ficticia” CTA. Existing Week 14 image-generated pricing mockup remains preserved; a Week 15 image-generated mockup must be added before calling this requirement complete.
+
+Global reference: maintenance workflow and ROI education (existing MaintainX benchmark); local adaptation: Spanish, Mexican pesos, coordinator-led WhatsApp capture, and family-confirmed closure. This is an adaptation hypothesis, not evidence of local demand.
+
+Three-year direction: an evidence-based outreach and onboarding process for multiple sites, with repeatable content, verified coordinator adoption and buyer renewal comparisons; automation of intake only after permission, security and reliability are demonstrated.
+
+## Release and evidence checklist
+Preserve original build conversation, historical commits and deploys. Before grading: verify production and preview URLs; capture screenshots of actual tests and real distribution, if performed; update DECISIONS.md; prepare PACKET, PERSONA, full BUILDCHAT and 3:30 DEMO. Mark unexecuted steps as pending, not passed.
