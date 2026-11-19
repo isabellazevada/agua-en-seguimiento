@@ -52,3 +52,14 @@ domain purchase, Vercel deployments, real-user research and 10:1 testing.
 
 - Clarified temporary saving where Laura makes the decision to save. Display the Google sign-in hint when account storage is configured.
 - Next move: reopen the branch preview, retest the demo wording and confirm the signed-in scenario can be reopened after reload.
+
+
+## Week 15 pre-build decision — November 19, 2026
+
+- Distribution audience: Mexican coordinators reconciling WhatsApp and Excel who can arrange manual capture. Committee members are buyers, not the primary workflow user.
+- Use honest claim: manually captured reports can be organized into next actions and verification status; do not claim automatic WhatsApp detection or proven real-world time savings.
+- Three recurring content series, six concepts and three assets across at least two formats. Human approves each asset.
+- Public call to action goes to the existing fictional demo. Do not collect personal contact data until a secure consent-based flow is reviewed.
+- Preserve Week 14 pricing calculator, authenticated data and historical deployment/commit evidence. No fake outreach, metrics or bugs.
+- Test plan and release gates are in the Week 15 addendum to PACKET.md, committed before feature changes.
+- Next move: implement the landing-page distribution path and creative assets, run mechanical checks, then fresh-chat synthetic persona and actual opt-in audience outreach; record only observed results.
