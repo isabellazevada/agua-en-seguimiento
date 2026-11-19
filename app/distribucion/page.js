@@ -1,0 +1,22 @@
+import Link from 'next/link';
+
+const series=[
+ {k:'01 / PROBLEMAS REALES',title:'¿Dónde quedó el siguiente paso?',body:'Un mensaje recibido por WhatsApp no equivale a un caso cerrado. Después de capturarlo, hace falta saber quién sigue, cuándo y qué falta verificar.',href:'/distribution/pendientes.svg',alt:'Tarjeta visual sobre el siguiente paso'},
+ {k:'02 / ASÍ FUNCIONA',title:'Del aviso a una acción clara',body:'1. Una persona registra el aviso. 2. Se asigna responsable y fecha. 3. El hogar confirma si la pérdida se detuvo.',href:'/distribution/metodo.svg',alt:'Diagrama de tres pasos para el seguimiento'},
+ {k:'03 / PRUEBA Y CONFIANZA',title:'Prueba el caso ficticio H-002',body:'Explora un caso reportado como reparado, pero todavía pendiente de confirmación del hogar. La demo no usa información real.',href:null,alt:null}
+];
+export const metadata={title:'Conoce Agua en seguimiento | Prueba la demo',description:'Seguimiento manual de avisos de agua, responsables y verificación del hogar. Demo con datos ficticios.'};
+export default function Distribucion(){return <main style={{background:'#FAF8F2',color:'#182B2B',minHeight:'100vh',padding:'clamp(24px,5vw,72px) 20px'}}>
+ <div style={{maxWidth:1050,margin:'0 auto'}}>
+ <p style={{letterSpacing:2,fontSize:12,fontWeight:700,color:'#164E53'}}>AGUA EN SEGUIMIENTO · DEMOSTRACIÓN ACADÉMICA</p>
+ <h1 style={{fontSize:'clamp(38px,6vw,72px)',lineHeight:1.08,margin:'24px 0',maxWidth:780}}>Menos información perdida.<br/><span style={{color:'#164E53'}}>Más seguimiento verificable.</span></h1>
+ <p style={{fontSize:19,lineHeight:1.65,maxWidth:710}}>Para coordinadoras que reciben avisos por WhatsApp y necesitan organizar responsables, fechas y confirmaciones sin perder de vista lo pendiente.</p>
+ <p style={{padding:'15px 18px',background:'#BCE8DD',borderRadius:12,maxWidth:720,margin:'20px 0 28px'}}><strong>Importante:</strong> la app no lee WhatsApp automáticamente. Una persona debe capturar los avisos. La reparación solo se considera verificada cuando existe la evidencia y confirmación del hogar.</p>
+ <div style={{display:'flex',gap:12,flexWrap:'wrap',marginBottom:54}}><Link href="/product" style={{background:'#164E53',color:'white',padding:'15px 24px',borderRadius:9,fontWeight:700,textDecoration:'none'}}>Probar demo ficticia →</Link><Link href="/pricing" style={{border:'2px solid #164E53',color:'#164E53',padding:'13px 22px',borderRadius:9,fontWeight:700,textDecoration:'none'}}>Ver piloto de $490 MXN</Link></div>
+ <h2 style={{fontSize:30,marginBottom:24}}>Tres maneras de entender el seguimiento</h2>
+ <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(260px,1fr))',gap:18}}>
+ {series.map((s,i)=><article key={s.k} style={{background:'white',padding:22,border:'1px solid #D7E4DF',borderRadius:16}}><p style={{fontSize:11,letterSpacing:1.3,fontWeight:700,color:'#164E53'}}>{s.k}</p>{s.href?<img src={s.href} alt={s.alt} style={{width:'100%',height:190,objectFit:'contain',borderRadius:8}}/>:<div style={{height:190,background:'#BCE8DD',borderRadius:9,padding:20,display:'flex',flexDirection:'column',justifyContent:'center'}}><strong style={{fontSize:29,color:'#164E53'}}>H-002</strong><span style={{marginTop:12,background:'#FFF0D6',padding:10,borderRadius:8}}>Reparación reportada · Sin verificar</span></div>}<h3 style={{fontSize:23,margin:'20px 0 10px'}}>{s.title}</h3><p style={{lineHeight:1.6}}>{s.body}</p>{i===2&&<Link href="/product" style={{fontWeight:700,color:'#164E53'}}>Abrir caso de ejemplo →</Link>}</article>)}
+ </div>
+ <section style={{marginTop:50,padding:'28px',background:'#164E53',color:'white',borderRadius:16}}><h2 style={{fontSize:30,margin:'0 0 12px'}}>¿Y si Excel ya funciona bien?</h2><p style={{lineHeight:1.7,maxWidth:800}}>También es una opción válida. La prueba debe comparar ambos métodos incluyendo el tiempo de captura, las decisiones con información desactualizada y los cierres confirmados por el hogar. No prometemos ahorros antes de medirlos.</p><Link href="/product" style={{display:'inline-block',marginTop:12,background:'white',color:'#164E53',padding:'13px 18px',borderRadius:9,fontWeight:700,textDecoration:'none'}}>Explorar sin registrarme →</Link></section>
+ <p style={{marginTop:24,fontSize:13,color:'#506765'}}>Contenido ilustrativo con casos inventados. No se recopilan contactos en esta página. Para compartir interés en un piloto, solicita una conversación directamente a la persona que te envió este enlace.</p>
+ </div></main>}
