@@ -43,3 +43,7 @@ has been invented. Record actual results as they occur.
 Laura, a synthetic condominium coordinator, reviewed three preview screenshots. She correctly identified that the simulated Site scenario fell MXN 440 short, but paused at the pre-fee savings and the ratio. The main confusion was seeing “Guardar escenario” in a demo that discards changes on reload. She also had difficulty distinguishing two same-name saved rows. The screenshots did not show a reload and reopen.
 
 The demo button now says “Guardar solo para esta prueba,” with a Google sign-in hint when available. The empty list explains that demo entries can be opened until reload. The signed-in button still says “Guardar escenario.” Live persona retest pending.
+
+
+## Week 15 — observed checks, 21 November 2026
+Student supplied screenshots of production distribution page, H-002 demo, reopening after fictional WhatsApp report, blocked verified closure, two history versions, temporary storage warning, and pricing example ($50 gross benefit, -$440 net, 0.10x). Synthetic Laura in a separate chat understood manual capture but reported two-click access confusion and technical-versus-household verification ambiguity. Commits ad819f7 and e629c45 clarify no-account access and add an H-002 explanation. Student screenshots confirm both revised texts live; two-click flow remains. No independent post-change persona comprehension test, real outreach, engagement metrics, cloud persistence or new automated test run claimed. Distribution results remain pending; original chat must be retained.
