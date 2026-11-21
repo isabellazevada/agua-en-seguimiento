@@ -185,3 +185,7 @@ Three-year direction: an evidence-based outreach and onboarding process for mult
 
 ## Release and evidence checklist
 Preserve original build conversation, historical commits and deploys. Before grading: verify production and preview URLs; capture screenshots of actual tests and real distribution, if performed; update DECISIONS.md; prepare PACKET, PERSONA, full BUILDCHAT and 3:30 DEMO. Mark unexecuted steps as pending, not passed.
+
+
+## Week 15 — observed checks, 21 November 2026
+Student supplied screenshots of production distribution page, H-002 demo, reopening after fictional WhatsApp report, blocked verified closure, two history versions, temporary storage warning, and pricing example ($50 gross benefit, -$440 net, 0.10x). Synthetic Laura in a separate chat understood manual capture but reported two-click access confusion and technical-versus-household verification ambiguity. Commits ad819f7 and e629c45 clarify no-account access and add an H-002 explanation. Student screenshots confirm both revised texts live; two-click flow remains. No independent post-change persona comprehension test, real outreach, engagement metrics, cloud persistence or new automated test run claimed. Distribution results remain pending; original chat must be retained.
